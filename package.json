@@ -3,18 +3,27 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "dev": "concurrently \"npm run server\" \"npm run client\"",
         "server": "nodemon server/server.js",
-        "client": "npm start --prefix client"
+        "client": "npm start --prefix client",
+        "data:import": "node server/seeder.js",
+        "data:distroy": "node server/seeder.js -d"
     },
     "keywords": [],
     "author": "Jon",
     "license": "ISC",
     "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "colors": "^1.4.0",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "express-async-handler": "^1.1.4",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.10.12",
+        "myreduxtypes": "^2.0.0"
     },
     "devDependencies": {
         "concurrently": "^5.3.0"
