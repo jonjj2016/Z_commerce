@@ -59,9 +59,10 @@ const getUser = asyncHandler(async(req, res) => {
     }
 });
 
-//  @desc  register New User
-//  @route POST/api/users/
-//  @access Public
+//  @desc  poscreate user 
+//  @route POST/api/users
+//  @access Private
+
 const registerUser = asyncHandler(async(req, res) => {
     const { name, email, password } = req.body;
 
@@ -90,9 +91,29 @@ const registerUser = asyncHandler(async(req, res) => {
     }
 
 
-})
+});
+//  @desc  update user 
+//  @route PATCH/api/users/profile
+//  @access Private
+
+const patchUser = asyncHandler(async(req, res) => {
+    const user = await User.findById(req.user._id);
+    if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        if (req.body.password) {
+            user.password = req.body.password
+        };
+        const updatedUser = await user.save();
+        return respondUser(res, updatedUser)
+    } else {
+        res.status(404)
+        throw new Error("User not Found")
+    }
+});
 export {
     authUser,
     getUser,
-    registerUser
+    registerUser,
+    patchUser
 }
